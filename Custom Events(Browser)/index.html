@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基于 浏览器的 自定义 事件 </title>
+</head>
+<body>
+    <div id='element-to-trigger-events'>Custom Events</div>
+</body>
+<script>
+    // 基于 浏览器的 自定义 事件 
+const customEvent = new CustomEvent('customEvent', {
+detail: 'Custom event data'   // Attach desired data{附需要的数据} to the event
+})
+
+const element = document.getElementById('element-to-trigger-events')
+
+element.addEventListener('customEvent', event => {
+console.log(`Subscriber 1 received custom event: ${event.detail}`)
+})
+
+element.addEventListener('customEvent', event => {
+console.log(`Subscriber 2 received custom event: ${event.detail}`)
+})
+
+// Trigger the custom event
+element.dispatchEvent(customEvent)
+
+// console：
+// Subscriber 1 received custom event: Custom event data
+// Subscriber 2 received custom event: Custom event data
+</script>
+</html>
