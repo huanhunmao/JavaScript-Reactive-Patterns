@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="element-to-observe" id="observed-element">test1</div>
+    <button onclick="changeAttribute()">Change Attribute</button>
+</body>
+<script>
+    function handleMutations(mutationsList, observer){
+        mutationsList.forEach(mutation => {
+            // An attribute of the observed element has changed
+            if(mutation.type === 'attributes'){
+                console.log(`Attribute '${mutation.attributeName}' changed to '${mutation.target.getAttribute(mutation.attributeName)}'`);
+            }
+        })
+    }
+
+    const observer = new MutationObserver(handleMutations)
+    const targetElement = document.getElementById('observed-element')
+
+    // Start observing the target element
+    observer.observe(targetElement, {attributes: true})
+
+    function changeAttribute() {
+        // Change the 'data-custom' attribute of the observed element
+        targetElement.setAttribute('data-custom', 'new value'); // Attribute 'data-custom' changed to 'new value'
+    }
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 滚动到 特定位置 才会触发  */
+        .firstHidden{ 
+            position: absolute;
+            top: 1800px;
+        }
+    </style>
+</head>
+<body>
+    <div class="element-to-observe firstHidden">test1</div>
+</body>
+<script>
+    function handleIntersection(entries, observer) {
+        entries.forEach(entry => {
+            // The target element is in the viewport 
+            // 当目标元素 .element-to-observe 进入视口时，会添加 visible 类，并在控制台中打印 "add visible"。
+            if(entry.isIntersecting){
+                entry.target.classList.add('visible')
+                console.log('add visible');
+            }else{
+                entry.target.classList.remove('visible')
+            }
+        })
+    }
+
+    const observer = new IntersectionObserver(handleIntersection)
+    const targetElement = document.querySelector('.element-to-observe')
+
+    // Start observing the target element
+    observer.observe(targetElement)
+</script>
+</html>
